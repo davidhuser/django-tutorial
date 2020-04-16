@@ -1,0 +1,11 @@
+<h1>Kasadaka Weather Info forecast</h1>
+
+{% if forecast_list %}
+<ul>
+    {% for day in forecast_list %}
+    <li>{{ day.date }} (TEMP: {{day.temperature}} RAIN: {{day.rainfall}} STORM: {{day.is_storm}})</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No forecasts are available.</p>
+{% endif %}
