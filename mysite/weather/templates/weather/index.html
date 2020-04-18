@@ -1,11 +1,21 @@
-<h1>Kasadaka Weather Info forecast</h1>
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'weather/style.css' %}">
+
+<h1>Kasadaka Weather Forecast</h1>
 
 {% if forecast_list %}
+
+<div class="transbox">
 <ul>
     {% for day in forecast_list %}
     <li>{{ day.date }} (TEMP: {{day.temperature}} RAIN: {{day.rainfall}} STORM: {{day.is_storm}})</li>
     {% endfor %}
 </ul>
+</div>
 {% else %}
+<div class="transbox">
 <p>No forecasts are available.</p>
+</div>
 {% endif %}
