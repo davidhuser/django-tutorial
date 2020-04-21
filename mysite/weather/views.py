@@ -1,5 +1,7 @@
 from django.utils import timezone
-
+from django.conf import settings
+from datetime import datetime
+import requests
 
 from django.shortcuts import render
 
@@ -15,7 +17,16 @@ class IndexView(generic.ListView):
         """
         Return the last five weather forecasts.
         """
-        return WeatherForecast.objects.order_by('-date')[:5]
+
+        resp = requests.get('http://api.openweathermap.org/data/2.5/weather?lat=13.892505&lon=-8.837564&appid=' + settings.OWM_API_KEY).json()
+        forecast = WeatherForecast(
+
+            date = datetime.now(),
+            temperature = resp['main']['temp'],
+            rainfall = 22.3,
+            wind_speed = resp['wind']['speed']
+        )
+        return [forecast]
 
 class WeatherView(generic.DetailView):
     model = WeatherForecast
